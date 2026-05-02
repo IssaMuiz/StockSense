@@ -11,7 +11,7 @@ COLUMNS_REQUIRED = [
     "product_name",
     "quantity_sold",
     "price",
-    "current_stock",
+    "stock_after",
 ]
 
 
@@ -21,13 +21,13 @@ class DataValidationError(Exception):  # Custom exception for data validation er
 
 def load_data(file_path):
     """
-    Load data from an Excel file.
-    Args: file_path (str): The path to the Excel file.
+    Load data from a CSV file.
+    Args: file_path (str): The path to the CSV file.
     Returns: pd.DataFrame: The loaded data as a pandas DataFrame.
 
     """
     try:
-        df = pd.read_excel(file_path)
+        df = pd.read_csv(file_path)
 
         df = df.rename(
             columns={
@@ -36,7 +36,7 @@ def load_data(file_path):
                 "ProductName": "product_name",
                 "UnitsSold": "quantity_sold",
                 "UnitPrice": "price",
-                "StockQuantity": "current_stock",
+                "StockQuantity": "stock_after",
             }
         )
 
@@ -71,3 +71,35 @@ def convert_to_datetime(df, date_column):
     """
     df[date_column] = pd.to_datetime(df[date_column], errors="coerce")
     return df
+
+
+def sort_by_date_and_productId(df, date_column, productId_column):
+    """
+    Sort the DataFrame by date and product ID.
+    Args: df (pd.DataFrame):
+    The input DataFrame. date_column: Column name for date. productId_column: Column name for product Id.
+    Returns: pd.DataFrame: The sorted DataFrame.
+    """
+    return df.sort_values(by=[date_column, productId_column])
+
+
+def lag_features(df, group_by_column, target_column):
+    """
+    Create Lag features for a specified target column grouped by a specified column.
+    Args:
+         df (pd.DataFrame): The input DataFrame.
+         group_by_column: Column name to group by.
+         target_column: Column name for which to create lag features.
+    Returns: pd.DataFrame: The DataFrame with lag features added."""
+
+    df[f"{target_column}_lag"] = df.groupby(group_by_column)[target_column].shift(-1)
+    return df
+
+
+def drop_null_values(df):
+    """
+    Drop rows with null values from the DataFrame.
+    Args: df (pd.DataFrame): The input DataFrame.
+    Returns: pd.DataFrame: The DataFrame with null values dropped.
+    """
+    return df.dropna()
