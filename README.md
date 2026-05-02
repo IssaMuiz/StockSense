@@ -67,6 +67,7 @@ StockSense/
 * Some null values was discovered in the lag feature, and a function was created to drop them
 
 ### 2. EDA (Exploratory Data Analysis)
+* EDA was performed, and meaningful insights was gain from the correlation analysis for the numerical data most especially the lag features and the product quantity sold, which shows that yesterday sales partially influence today's sales.
 
 ### 3. Model Training
 
