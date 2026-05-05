@@ -69,13 +69,20 @@ StockSense/
 ### 2. EDA (Exploratory Data Analysis)
 * EDA was performed, and meaningful insights was gain from the correlation analysis for the numerical data most especially the lag features and the product quantity sold, which shows that yesterday sales partially influence today's sales.
 
-### 3. Model Training
+### 3. Data Splitting
+* After the data cleaning, the dataset now consists of 895 rows and 7 columns
+* The dataset was splitted into training, validation and testing set
+* training set consists of 626 columns, validation set consists of 134 and testing set consists of 135 rows
+* The dataset was further splitted into features and target variables across all the 3 splitted datasets
+*  The model will be train on the training set and the baseline testing will be done on the validation test, and not feeding the testing set yet until after the tuning and final model training. 
+
+### 4. Model Training
 
 
-### 4. Prediction
+### 5. Prediction
 
 
-### 5. Restock Recommendation
+### 6. Restock Recommendation
 
 
 ## Project Steps
