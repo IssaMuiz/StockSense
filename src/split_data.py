@@ -12,6 +12,7 @@ def split_data(df):
     train_size = 0.7
     val_size = 0.15
 
+    df.drop(columns=["date", "product_name"], inplace=True)
     train_end = int(len(df) * train_size)
     val_end = int(len(df) * (train_size + val_size))
 

@@ -74,12 +74,35 @@ StockSense/
 * The dataset was splitted into training, validation and testing set
 * training set consists of 626 columns, validation set consists of 134 and testing set consists of 135 rows
 * The dataset was further splitted into features and target variables across all the 3 splitted datasets
-*  The model will be train on the training set and the baseline testing will be done on the validation test, and not feeding the testing set yet until after the tuning and final model training. 
+*  The model will be train on the training set and the baseline testing will be done on the validation test, and the testing will not be used until after the tuning and final model training. 
 
 ### 4. Model Training
+* The product name was dropped, while the product id was encoded, both give the same information and one has to be dropped to avoid redundancy
+* The model was trained using the RandomForestRegressor model
+* 
 
 
 ### 5. Prediction
+* The initial baseline model was evaluated using the following regression metrics:
+ - Mean Absolute Error (MAE)
+ - Mean Squared Error (MSE)
+ - R² Score
+* The baseline prediction scores are:
+  - MAE - 2.8
+  - MSE - 12.4
+  - R2 Score - -0.07
+
+* Evaluation Summary
+  - The baseline model achieved an MAE of approximately 2.8 units, indicating that predictions deviate from actual sales by an average of about 3 units.
+  - The negative R² score suggests that the current model performs slightly below a naive baseline predictor that estimates the average sales value.
+  - While the baseline metrics are acceptable for an initial MVP prototype, the model currently has limited predictive power due to minimal feature engineering and the simplified nature of the dataset.
+
+* Future Improvements
+  - To improve forecasting performance, additional feature engineering and model optimization will be required, including:
+  - Additional lag-based features
+  - Rolling statistics (moving averages)
+  - Date-derived features (day of week, month, seasonality)
+  - Enhanced demand patterns and external business signals
 
 
 ### 6. Restock Recommendation
