@@ -26,5 +26,5 @@ def train_and_evaluate_model(X_train, y_train, X_val, y_val):
     Returns: A dictionary containing the evaluation metrics."""
 
     model = train_model(X_train, y_train)
-    evaluation_results = evaluate_model(model, X_val, y_val)
-    return evaluation_results
+    y_pred, evaluation_results = evaluate_model(model, X_val, y_val)
+    return y_pred, evaluation_results

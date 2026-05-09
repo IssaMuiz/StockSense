@@ -83,18 +83,6 @@ def sort_by_date_and_productId(df, date_column, productId_column):
     return df.sort_values(by=[date_column, productId_column])
 
 
-def lag_features(df, group_by_column, target_column):
-    """
-    Create Lag features for a specified target column grouped by a specified column.
-    Args:
-         df (pd.DataFrame): The input DataFrame.
-         group_by_column: Column name to group by.
-         target_column: Column name for which to create lag features.
-    Returns: pd.DataFrame: The DataFrame with lag features added."""
-
-    df[f"{target_column}_lag"] = df.groupby(group_by_column)[target_column].shift(-1)
-    return df
-
 
 def drop_null_values(df):
     """

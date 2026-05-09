@@ -1,4 +1,5 @@
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import pandas as pd
 
 
 def evaluate_model(model, X_val, y_val):
@@ -21,4 +22,4 @@ def evaluate_model(model, X_val, y_val):
         "Mean Absolute Error": mae,
         "R2 Score": r2,
     }
-    return evaluation_results
+    return y_pred, evaluation_results

@@ -104,6 +104,75 @@ StockSense/
   - Date-derived features (day of week, month, seasonality)
   - Enhanced demand patterns and external business signals
 
+### 6. Error Analysis
+
+An error analysis was conducted to evaluate how closely the model predictions aligned with actual sales values.
+
+#### Key Observations
+
+* The predicted sales values generally followed the same trend pattern as the actual sales data.
+* The prediction curve exhibited a similar zig-zag movement to the actual demand series, indicating that the model was able to capture part of the underlying sales behavior.
+* Although the model learned short-term demand patterns, it struggled with prediction precision and larger fluctuations in demand.
+
+#### Interpretation
+
+The error analysis suggests that the baseline model is capable of identifying general sales movement trends but still has limited forecasting accuracy. This behavior is expected at the MVP stage due to:
+
+* limited feature engineering
+* relatively small dataset size
+* synthetic data generation
+* absence of advanced temporal and seasonal features
+
+#### Conclusion
+
+The current model provides a functional baseline forecasting system suitable for MVP development. Further improvements in feature engineering and data realism are expected to improve model performance and predictive reliability.
+
+### 7. Features Engineering
+* Rolling mean Feature
+
+  - A 7-day rolling mean feature (`rolling_mean_7`) was introduced to capture short-term sales trends and recent demand behavior.
+
+  - The feature was generated using historical sales values grouped by product and shifted appropriately to prevent data leakage.
+
+  - The rolling feature was intended to help the model learn:
+
+    - short-term demand trends
+    - smoother sales movement patterns
+    - recent purchasing behavior over multiple days
+
+  - After retraining the model with the additional rolling feature, model performance declined across all evaluation metrics.
+
+  | Metric   | Baseline Model | With Rolling Feature |
+  | -------- | -------------- | -------------------- |
+  | MAE      | 2.81           | 2.98                 |
+  | MSE      | 12.41          | 12.96                |
+  | R² Score | -0.07          | -0.21                |
+
+  - The decrease in performance suggests that the rolling mean feature did not provide meaningful predictive information for the current dataset. Possible reasons include:
+
+    - limited dataset size
+    - weak temporal patterns in the synthetic data
+    - smoothing of useful short-term variations already captured by `lag_1`
+
+  - This experiment demonstrates that adding more features does not always improve model performance and highlights the importance of validating feature engineering decisions using evaluation metrics.
+
+  - The rolling feature was removed from the final baseline model configuration, and the simpler feature set produced more stable forecasting performance for the MVP stage.
+
+* Days of the Week Features
+  
+ - A `day_of_week` feature was extracted from the `date` column to capture weekly sales patterns.
+
+ - After adding the feature, the model performance improved slightly:
+
+  | Metric   | Score  |
+  | -------- | ------ |
+  | MAE      | 2.69   |
+  | MSE      | 12.11  |
+  | R² Score | -0.068 |
+
+  - The feature was retained in the final baseline model because it improved prediction performance compared to the previous model configuration.
+
+    
 
 ### 6. Restock Recommendation
 
