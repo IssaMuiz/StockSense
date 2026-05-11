@@ -1,5 +1,6 @@
 from sklearn.ensemble import RandomForestRegressor
 from src.predict import evaluate_model
+from sklearn.model_selection import GridSearchCV
 
 
 def train_model(X_train, y_train):
@@ -28,3 +29,30 @@ def train_and_evaluate_model(X_train, y_train, X_val, y_val):
     model = train_model(X_train, y_train)
     y_pred, evaluation_results = evaluate_model(model, X_val, y_val)
     return y_pred, evaluation_results
+
+
+def hyperparameter_tuning(X_train, y_train):
+    """
+    perform hyperparameter tuning using GridSearchCV.
+    Args:
+        X_train (pd.DataFrame): The training features.
+        y_train (pd.Series): The training target variable.
+    Returns: The best model found by GridSearchCV.
+    """
+    param_grid = {
+        "n_estimators": [50, 100, 200],
+        "max_depth": [5, 10, None],
+        "min_samples_split": [2, 5],
+        "min_samples_leaf": [1, 2],
+    }
+    grid_search = GridSearchCV(
+        estimator=RandomForestRegressor(random_state=42),
+        param_grid=param_grid,
+        scoring="neg_mean_absolute_error",
+        cv=3,
+        n_jobs=-1,
+    )
+    grid_search.fit(X_train, y_train)
+    best_model = grid_search.best_estimator_
+    print("Best Hyperparameters:", grid_search.best_params_)
+    return best_model
