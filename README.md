@@ -204,6 +204,28 @@ Although the error metrics slightly increased compared to manual experimentation
 * production-ready architecture
 
 The final pipeline serves as the foundation for future deployment and real-time prediction integration in the StockSense MVP.
+
+### 10. Final Model Testing
+
+The final trained pipeline was evaluated on an unseen test dataset to measure the model’s generalization performance and validate its readiness for deployment.
+
+The test set was kept completely separate from the training and validation stages to ensure unbiased evaluation.
+
+
+#### Metric	Score
+
+| Metric   | Score |
+| -------- | ----- |
+| MAE      | 2.79  |
+| MSE      | 12.22 |
+| R² Score | 0.076 |
+
+
+The model maintained stable performance on unseen data and achieved a positive R² score during final evaluation.
+
+This indicates that the model was able to learn meaningful demand patterns without significant overfitting.
+
+The final evaluation confirmed that the StockSense forecasting pipeline is suitable for MVP-level deployment and further production integration.
    
 
 ## Project Steps
