@@ -83,7 +83,6 @@ def sort_by_date_and_productId(df, date_column, productId_column):
     return df.sort_values(by=[date_column, productId_column])
 
 
-
 def drop_null_values(df):
     """
     Drop rows with null values from the DataFrame.

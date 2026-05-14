@@ -89,16 +89,12 @@ An error analysis was conducted to evaluate how closely the model predictions al
 * The prediction curve exhibited a similar zig-zag movement to the actual demand series, indicating that the model was able to capture part of the underlying sales behavior.
 * Although the model learned short-term demand patterns, it struggled with prediction precision and larger fluctuations in demand.
 
-#### Interpretation
-
 The error analysis suggests that the baseline model is capable of identifying general sales movement trends but still has limited forecasting accuracy. This behavior is expected at the MVP stage due to:
 
 * limited feature engineering
 * relatively small dataset size
 * synthetic data generation
 * absence of advanced temporal and seasonal features
-
-#### Conclusion
 
 The current model provides a functional baseline forecasting system suitable for MVP development. Further improvements in feature engineering and data realism are expected to improve model performance and predictive reliability.
 
@@ -141,9 +137,9 @@ The current model provides a functional baseline forecasting system suitable for
 
   | Metric   | Score  |
   | -------- | ------ |
-  | MAE      | 2.69   |
-  | MSE      | 12.11  |
-  | R² Score | -0.068 |
+  | MAE      | 2.75   |
+  | MSE      | 12.5  |
+  | R² Score | -0.098 |
 
   - The feature was retained in the final baseline model because it improved prediction performance compared to the previous model configuration.
 
@@ -163,24 +159,52 @@ The tuning process optimized key model parameters such as:
 
 | Metric   | Score |
 | -------- | ----- |
-| MAE      | 2.63  |
-| MSE      | 10.76 |
-| R² Score | 0.069 |
-
-#### Result
+| MAE      | 2.66  |
+| MSE      | 11.47 |
+| R² Score | -0.006 |
 
 After hyperparameter tuning:
-
 * prediction error reduced further
 * model performance improved across all evaluation metrics
 * the R² score became positive, indicating that the model was able to explain part of the variation in sales demand
 
 The tuned Random Forest model was selected as the final model configuration for the StockSense MVP.
 
-    
 
-### 8. Restock Recommendation
+### 9. Production Pipeline Development
 
+A production-style machine learning pipeline was developed to automate the preprocessing, training, and prediction workflow of the StockSense demand forecasting system.
+
+The production pipeline includes:
+
+* automated feature engineering using pandas
+* categorical feature encoding
+* numerical preprocessing
+* Random Forest model training
+* hyperparameter tuning using `GridSearchCV`
+
+Custom time-series features such as lag features and day-of-week extraction were handled outside the sklearn pipeline to ensure stability and prevent transformation issues during training and inference.
+
+#### Pipeline Model Performance
+
+| Metric   | Score |
+| -------- | ----- |
+| MAE      | 3.14  |
+| MSE      | 15.39 |
+| R² Score | 0.062 |
+
+
+The production pipeline successfully automated the end-to-end machine learning workflow while maintaining a positive R² score.
+
+Although the error metrics slightly increased compared to manual experimentation, the pipeline provided:
+
+* consistent preprocessing
+* reusable training workflow
+* improved maintainability
+* production-ready architecture
+
+The final pipeline serves as the foundation for future deployment and real-time prediction integration in the StockSense MVP.
+   
 
 ## Project Steps
 

@@ -1,4 +1,7 @@
+import sys
 import pandas as pd
+
+sys.path.append("..")
 
 
 def lag_features(df, group_by_column, target_column):
@@ -10,7 +13,7 @@ def lag_features(df, group_by_column, target_column):
          target_column: Column name for which to create lag features.
     Returns: pd.DataFrame: The DataFrame with lag features added."""
 
-    df[f"{target_column}_lag"] = df.groupby(group_by_column)[target_column].shift(-1)
+    df[f"{target_column}_lag"] = df.groupby(group_by_column)[target_column].shift(1)
     return df
 
 
