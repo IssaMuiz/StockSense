@@ -90,3 +90,18 @@ def drop_null_values(df):
     Returns: pd.DataFrame: The DataFrame with null values dropped.
     """
     return df.dropna()
+
+
+def clean_data(df):
+    """
+    Clean the input DataFrame by performing a series of transformations.
+    Args: df (pd.DataFrame): The input DataFrame.
+    Returns: pd.DataFrame: The cleaned DataFrame.
+    """
+    df = remove_unwanted_columns(df, columns_to_remove=[])
+    df = convert_to_datetime(df, date_column="date")
+    df = sort_by_date_and_productId(
+        df, date_column="date", productId_column="product_id"
+    )
+    df = drop_null_values(df)
+    return df
